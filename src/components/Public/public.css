@@ -1,0 +1,46 @@
+.Public-welcome {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15%;
+}
+
+.Public-welcome h2 {
+    margin-bottom: 10px;
+}
+
+.Public-welcome p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.Public-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.Public-button:hover {
+    background-color: #555;
+}
+
+@media (min-width: 768px) {
+    .Public-welcome {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .Public-button {
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+    }
+}
