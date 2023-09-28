@@ -6,7 +6,8 @@ import Layout from "./components/Layout"
 import Public from "./components/Public/Public"
 import RequireAuth from "./features/auth/RequireAuth"
 import NotFound from "./pages/NotFound/NotFound"
-
+import TopBar from "./components/topBar/TopBar"
+import Settings from "./pages/Settings/Settings"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Router>
+        <TopBar/>
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path='/' element={<Layout />}>
@@ -25,6 +27,7 @@ function App() {
             {/* protected Routes */}
             <Route element={<RequireAuth />}>
               <Route path="home" element={<Home />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
           </Route>
         </Routes>
