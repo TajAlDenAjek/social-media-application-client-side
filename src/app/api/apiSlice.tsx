@@ -15,13 +15,14 @@ type RefreshResponse = {
 const baseQuery = fetchBaseQuery({
     baseUrl: SERVER_SIDE,
     credentials: 'include',
-    prepareHeaders: (headers, { getState }: any) => {
+    
+    prepareHeaders: (headers, { getState}: any) => {
         const token = getState().auth.token
         if (token) {
             headers.set('authorization', `Bearer ${token}`)
         }
         return headers
-    }
+    }  
 })
 
 // custom query function to (access-refresh) logic
@@ -52,7 +53,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
 // Api Slice 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-    endpoints: () => ({})
+    endpoints: () => ({}),
 })
 
 
