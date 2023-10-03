@@ -24,16 +24,41 @@ export type PostType = {
 export const postApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getPosts: builder.query({
-            query: (id) => `/post/all/${id}`
+            query: (id) => `/post/all/${id}`,
+            providesTags: ['Posts']
         }),
         getPost: builder.query({
-            query: postId => `/post/${postId}`
-        })
+            query: postId => `/post/${postId}`,
+            providesTags: ['Posts']
+        }),
+        updatePost: builder.mutation({
+            query: data => {
+                const bodyFormData = new FormData();
+                bodyFormData.append('image', data.image);
+                bodyFormData.append('data', data.data);
+                return {
+                    url: `/post/edit/${data.id}`,
+                    method: 'PATCH',
+                    body: bodyFormData,
+                    formData: true,
+                };
+            },
+            invalidatesTags: ['Posts']
+        }),
+        deletePost: builder.mutation({
+            query: id => ({
+                url: `/post/delete/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Posts']
+        }),
     })
 })
 
 
 export const {
     useGetPostsQuery,
-    useGetPostQuery
+    useGetPostQuery,
+    useUpdatePostMutation,
+    useDeletePostMutation
 } = postApiSlice

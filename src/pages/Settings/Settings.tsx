@@ -32,7 +32,7 @@ const Settings: React.FC = () => {
   const [img, setImg] = useState('');
   const [file, setFile] = useState(undefined);
 
-  // refrence to the input behine the image
+  // refrence to the input behined the image
   const fileInputRef = useRef<React.MutableRefObject<undefined> | any>(null);
 
   // error messages

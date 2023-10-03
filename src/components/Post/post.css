@@ -18,15 +18,32 @@
     width :inherit;
     height: inherit;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 15px;
     
-    border:1px solid lightgray;
+    /* border:1px solid lightgray; */
 }
 .post-header {
     display: flex;
-    align-items: center;
+    align-content: baseline;
+
     align-self: flex-start;
+    width: 100%;
+}
+.post-header .post-profile-picture,
+.post-header .post-author,
+.post-header .post-time{
+    /* align-self: flex-start; */
+}
+.post-header-actions{
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    margin-left: 15px;
+}
+.post-header-actions *{
+    margin: 5px;
 }
 .post-items a{
     color:inherit;
@@ -85,4 +102,8 @@
     /* white-space: nowrap;  */
     background-color: inherit;
     resize: none;
+}
+.error-message {
+    color: red;
+    margin: 20px;
 }
