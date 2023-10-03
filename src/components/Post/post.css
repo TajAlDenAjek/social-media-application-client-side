@@ -15,7 +15,13 @@
     word-wrap: break-word
 }
 .post-items{
-    margin-top:15px;
+    width :inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    
+    border:1px solid lightgray;
 }
 .post-header {
     display: flex;
@@ -68,4 +74,15 @@
     overflow-y: scroll;
     height:100px;
     min-width: inherit;
+}
+
+.singlePostDescInput
+{
+    border: none;
+    color:inherit;
+    font-size: inherit;
+    line-height: 25px;
+    /* white-space: nowrap;  */
+    background-color: inherit;
+    resize: none;
 }

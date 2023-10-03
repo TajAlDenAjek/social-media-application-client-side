@@ -11,14 +11,15 @@ import { fetchImage } from '../SimpleImageFetcher';
 import './post.css'
 type PostProps = {
   post: PostType,
-  isSameUser?:boolean
+  isSameUser?: boolean
 } | any
 
 
-const Post: React.FC<PostProps> = ({ post ,isSameUser}) => {
+const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
 
   const [profilePicture, setProfilePicture] = useState('')
   const [postImage, setPostImage] = useState('')
+  const [postText,setPostText]=useState(post.text)
   const token = useSelector(selectCurrentToken)
 
   // normal fetch request to a static image on the backend 
@@ -33,9 +34,9 @@ const Post: React.FC<PostProps> = ({ post ,isSameUser}) => {
       fetchImage('default.png', setPostImage, token)
   }, [])
   return (
-    
+
     <div className="post-card" >
-      {isSameUser?<p>you are auhtorized to edit this</p>:<></>}
+      {isSameUser ? <p>you are auhtorized to edit this</p> : <></>}
       <div className="post-header">
         <img
           src={profilePicture}
@@ -49,7 +50,11 @@ const Post: React.FC<PostProps> = ({ post ,isSameUser}) => {
       </div>
       <div className="post-items">
         <Link to={`/post/${post.id}`}>
-          <p className="post-content">{post.text}</p>
+          {
+            isSameUser?<textarea className='singlePostDescInput' value={postText} onChange={(e)=>setPostText(e.target.value)}/>
+            :<p className="post-content">{postText}</p>
+          }
+          
         </Link>
       </div>
       <div className="post-items">
@@ -62,12 +67,14 @@ const Post: React.FC<PostProps> = ({ post ,isSameUser}) => {
         <span className="post-dislikes"><FontAwesomeIcon icon={faThumbsDown} />{post.dislikesCount}</span>
       </div>
       <div className="post-items">
-
-        <div className="post-comments">
-          {post.Comments.map((comment: CommentType, index: number) => (
-            <Comment comment={comment} key={index} />
-          ))}
-        </div>
+        {
+          post.Comments.lenght>=1?
+            <div className="post-comments">
+              {post.Comments.map((comment: CommentType, index: number) => (
+                <Comment comment={comment} key={index} />
+              ))}
+            </div> : <></>
+        }
       </div>
     </div>
   );

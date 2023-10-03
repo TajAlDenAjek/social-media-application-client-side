@@ -16,11 +16,11 @@ const SinglePost = () => {
         isError,
         error
     } = useGetPostQuery(curId)
-    let isSameUser:boolean=(id===post.userId?true:false)
     let content
     if (isLoading) {
         content = <h1>Loading...</h1>
     } else if (isSuccess) {
+        let isSameUser:boolean=(id===post.userId?true:false)
         content = <Post post={post} isSameUser={isSameUser} />
 
     } else if (isError) {
