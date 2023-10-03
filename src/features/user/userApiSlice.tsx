@@ -13,7 +13,10 @@ export type UserProfile = {
     picturePath: string | undefined,
     state: "friends" | "not friends" | "pending" | "blocked" | undefined
 }
-
+export type UserType={
+    username:string,
+    picturePath:string|null
+}
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({

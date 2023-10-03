@@ -3,10 +3,9 @@ import { useGetProfileMutation, useUpdateProfileMutation, useDeleteProfileMutati
 import { selectCurrentId, selectCurrentToken, logOut } from "../../features/auth/authSlice";
 import { UserProfile } from "../../features/user/userApiSlice";
 import { useSelector, useDispatch } from "react-redux";
-
+import { fetchImage } from "../../components/SimpleImageFetcher";
 import './settings.css'
 
-const PublicFiles = import.meta.env.VITE_REACT_API_KEY + '/api/public/images/'
 
 type ResultProfileType = {
   data: any | UserProfile
@@ -93,26 +92,6 @@ const Settings: React.FC = () => {
       })
     } catch (error) { }
   }
-
-  // normal fetch request to a static image on the backend 
-  const fetchImage = async (fileName: string) => {
-    const res = await fetch(`${PublicFiles}${fileName}`, {
-      credentials: "same-origin", //send cookeis
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token,
-      },                          // send token
-    });
-
-    //basic method for analyzing the shape features of an object,
-    const imageBlob = await res.blob();
-    // retrive the url of the current image
-    const imageObjectURL = URL.createObjectURL(imageBlob);
-    // set the new state of the image to display 
-    setImg(imageObjectURL);
-  };
-
   // update query request
   const handleUpdate = async () => {
     // alert confirmation 
@@ -174,9 +153,9 @@ const Settings: React.FC = () => {
   // after that set the image depending on the data
   useEffect(() => {
     if (userProfile.picturePath)
-      fetchImage(userProfile.picturePath)
+      fetchImage(userProfile.picturePath,setImg,token)
     else if (userProfile.picturePath === undefined)
-      fetchImage('default.png')
+      fetchImage('default.png',setImg,token)
   }, [userProfile.picturePath])
 
   const content = (

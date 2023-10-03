@@ -8,7 +8,7 @@ import RequireAuth from "./features/auth/RequireAuth"
 import NotFound from "./pages/NotFound/NotFound"
 import TopBar from "./components/topBar/TopBar"
 import Settings from "./pages/Settings/Settings"
-
+import SinglePost from "./pages/SinglePost/SinglePost"
 
 function App() {
 
@@ -16,18 +16,20 @@ function App() {
   return (
     <>
       <Router>
-        <TopBar/>
+        <TopBar />
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path='/' element={<Layout />}>
             {/* public routes */}
             <Route index element={<Public />} />
             <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register/>} />
+            <Route path="register" element={<Register />} />
             {/* protected Routes */}
             <Route element={<RequireAuth />}>
               <Route path="home" element={<Home />} />
               <Route path="settings" element={<Settings />} />
+              {/* Single Post page route */}
+              <Route path='/post/:postId' element={<SinglePost />} />
             </Route>
           </Route>
         </Routes>
