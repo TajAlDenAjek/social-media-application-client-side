@@ -105,7 +105,7 @@ const UserProfilePage = () => {
               option === 'posts' 
                 ?<Posts userId={Number(curId)} />
                 : option==='comments' 
-                ?<div className='optionResultContainer'><Comments userId={Number(curId)} /></div>
+                ?<Comments userId={Number(curId)}/>
 
                   : <h1>Not implemented</h1>
             }

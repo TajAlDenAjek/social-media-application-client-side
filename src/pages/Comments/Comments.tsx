@@ -1,6 +1,7 @@
 import React from 'react'
 import { useGetCommentsQuery, CommentType } from '../../features/comment/commentApiSlice'
 import Comment from '../../components/Comment/Comment'
+import './comments.css'
 type CommentsProps = {
     userId: number | string,
 }

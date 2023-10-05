@@ -36,8 +36,37 @@
     color: #777;
 }
 .post-comment-ShowPostLink{
-    align-self: flex-end;
-    justify-self: center;
+    margin-right: 20px;
     color:blueviolet;
     
+}
+
+.Comment-actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /* justify-content: space-between; */
+    /* flex-direction: column; */
+    /* background-color: red; */
+}
+.commentUpdateDeleteContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.commentUpdateDeleteContainer *{
+    margin-left: 20px;
+}
+
+.singleCommentTextArea
+{
+    display: flex;
+
+    border: none;
+    color:inherit;
+    font-size: inherit;
+    line-height: 25px;
+    /* white-space: nowrap;  */
+    max-width: inherit;
+    background-color: inherit;
+    resize: none;
 }

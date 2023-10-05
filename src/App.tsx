@@ -10,6 +10,7 @@ import TopBar from "./components/topBar/TopBar"
 import Settings from "./pages/Settings/Settings"
 import SinglePost from "./pages/SinglePost/SinglePost"
 import UserProfilePage from "./pages/UserProfile/UserProfilePage"
+import SingleComment from "./pages/SingleComment/SingleComment"
 function App() {
 
 
@@ -32,6 +33,8 @@ function App() {
               <Route path='/userProfile/:usertId' element={<UserProfilePage/>} />
               {/* Single Post page route */}
               <Route path='/post/:postId' element={<SinglePost />} />
+              {/* Single Comment Page route */}
+              <Route path='/comment/:commentId' element={<SingleComment />} />
             </Route>
           </Route>
         </Routes>
