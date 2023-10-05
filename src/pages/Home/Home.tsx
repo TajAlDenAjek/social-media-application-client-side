@@ -84,7 +84,7 @@ const Home = () => {
       // request 
       await createPost(req).unwrap()
       // refresh when success
-      // window.location.reload();
+      window.location.reload();
     } catch (error: any) {
       // handleing error message from backend api
       //init 
