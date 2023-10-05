@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faThumbsDown, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faThumbsDown, faEdit, faTrash, faComment } from '@fortawesome/free-solid-svg-icons';
 import Comment from '../Comment/Comment';
-import { CommentType } from '../../features/comment/commentApiSlice';
+import { CommentType, useCreateCommentMutation } from '../../features/comment/commentApiSlice';
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from '../../features/auth/authSlice'
 import { fetchImage } from '../SimpleImageFetcher';
-import { PostType,useUpdatePostMutation, useDeletePostMutation } from '../../features/post/postApiSlice';
-import { useNavigate ,Link} from 'react-router-dom';
+import { PostType, useUpdatePostMutation, useDeletePostMutation } from '../../features/post/postApiSlice';
+import { useNavigate, Link } from 'react-router-dom';
+
 import './post.css'
 type PostProps = {
   post: PostType,
@@ -33,6 +34,16 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
   // error messages
   const [errMsg, setErrMsg] = useState<string | string[] | null>('')
 
+
+  // comment
+  const [commentText,setCommentText]=useState('')
+  const [createComment,{}]=useCreateCommentMutation()
+
+  const handleCreateComment=async()=>{
+    if(commentText!==''){
+      const res=await createComment({postId:post.id,text:commentText})
+    }
+  }
   // refrence to the input behined the image
   const fileInputRef = useRef<React.MutableRefObject<undefined> | any>(null);
   // upload image functionality 
@@ -169,6 +180,14 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
       <div className="post-items">
         {/* { */}
         {/* // post.Comments.lenght  ? */}
+        <span className='post-comment-span'>
+          <input type="text" className="post-comment-input" placeholder='Write a comment.' 
+          value={commentText}
+          onChange={e=>setCommentText(e.target.value)}
+          />
+          
+          <FontAwesomeIcon icon={faComment} style={{cursor:'pointer'}} title="post comment" onClick={handleCreateComment}/>
+        </span>
         <div className="post-comments">
           {post.Comments.map((comment: CommentType, index: number) => (
             <Comment comment={comment} key={index} />

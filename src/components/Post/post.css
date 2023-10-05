@@ -111,3 +111,16 @@
     color: red;
     margin: 20px;
 }
+.post-comment-span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.post-comment-input{
+    border-radius:10px;
+    border:#222;
+    margin-right: 15px;
+    width: 100%;
+    font-size: medium;
+}
