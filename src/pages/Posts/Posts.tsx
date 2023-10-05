@@ -6,15 +6,21 @@ import { useSelector } from 'react-redux'
 import { selectCurrentId } from '../../features/auth/authSlice'
 import './posts.css'
 
-const Posts = () => {
-    const id=useSelector(selectCurrentId)
+
+type PostsProps={
+  userId:number
+}
+
+const Posts: React.FC<PostsProps> = ({userId}) => {
+    // const id=useSelector(selectCurrentId)
     const {
         data: posts,
         isLoading,
         isSuccess,
         isError,
         error
-    } = useGetPostsQuery(id)
+    } = useGetPostsQuery(userId)
+
     let content
     if (isLoading) {
         content = <h1>Loading...</h1>

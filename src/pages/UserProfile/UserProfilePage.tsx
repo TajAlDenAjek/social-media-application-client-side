@@ -4,6 +4,9 @@ import { fetchImage } from "../../components/SimpleImageFetcher";
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../../features/auth/authSlice';
 import Posts from '../Posts/Posts';
+import { Link } from 'react-router-dom';
+
+
 import './userprofilepage.css'
 
 
@@ -24,7 +27,7 @@ const UserProfilePage = () => {
     picturePath: '', state: undefined
   })
 
-  const [option,setOption]=useState('posts')
+  const [option, setOption] = useState('posts')
   const [img, setImg] = useState('')
   const [getUserProfile, { isLoading }] = useGetProfileMutation()
   const token = useSelector(selectCurrentToken)
@@ -64,28 +67,45 @@ const UserProfilePage = () => {
       fetchImage('default.png', setImg, token)
   }, [userProfile.picturePath])
 
-
+  const goBack = () => {
+    <Link to={String(window.history.back())} />
+  };
 
   const content = (
     isLoading ? <h1>Loading...</h1>
       : (
-        <div className="profile">
-          <img src={img} alt="Profile Picture" className="profile-picture" />
-          <div className="profile-details">
-            <h2>{userProfile.username}</h2>
-            <p>First Name: {userProfile.firstName}</p>
-            <p>Last Name: {userProfile.lastName}</p>
-            <p>Gender: {userProfile.gender}</p>
-            <p>Birthday: {userProfile.birthday}</p>
-            <p>Join Time: {userProfile.createdAt}</p>
-            <p>Country:{userProfile.country}</p>
+        <div className="profile-page-container">
+
+          <div className="profile">
+            <img src={img} alt="Profile Picture" className="profile-picture" />
+            <div className="profile-details">
+              <h2>{userProfile.username}</h2>
+              <p>First Name: {userProfile.firstName}</p>
+              <p>Last Name: {userProfile.lastName}</p>
+              <p>Gender: {userProfile.gender}</p>
+              <p>Birthday: {userProfile.birthday}</p>
+              <p>Join Time: {userProfile.createdAt}</p>
+              <p>Country:{userProfile.country}</p>
+            </div>
+
+            <div className="profile-options">
+              <button onClick={goBack}>
+                Go Back
+              </button>
+              <select className="profile-selector" value={option} onChange={e => { setOption(e.target.value) }}>
+                <option value="posts">Posts</option>
+                <option value="comments">Comments</option>
+                <option value="reactions">Reactions</option>
+              </select>
+            </div>
           </div>
-          <div className="profile-options">
-            <select className="profile-selector" value={option} onChange={e=>{setOption(e.target.value)}}>
-              <option value="posts">Posts</option>
-              <option value="comments">Comments</option>
-              <option value="reactions">Reactions</option>
-            </select>
+          <hr />
+          <div>
+            {
+              option === 'posts' ?
+                <Posts userId={Number(curId)} />
+                : <h1>nothingbro</h1>
+            }
           </div>
         </div>
       )

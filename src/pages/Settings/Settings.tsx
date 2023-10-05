@@ -4,6 +4,7 @@ import { selectCurrentId, selectCurrentToken, logOut } from "../../features/auth
 import { UserProfile } from "../../features/user/userApiSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchImage } from "../../components/SimpleImageFetcher";
+import { useNavigate,Link } from "react-router-dom";
 import './settings.css'
 
 
@@ -28,6 +29,7 @@ const Settings: React.FC = () => {
     picturePath: '', state: undefined
   })
 
+  const navigate = useNavigate()
   // picture and image file when upload
   const [img, setImg] = useState('');
   const [file, setFile] = useState(undefined);
@@ -153,11 +155,14 @@ const Settings: React.FC = () => {
   // after that set the image depending on the data
   useEffect(() => {
     if (userProfile.picturePath)
-      fetchImage(userProfile.picturePath,setImg,token)
+      fetchImage(userProfile.picturePath, setImg, token)
     else if (userProfile.picturePath === undefined)
-      fetchImage('default.png',setImg,token)
+      fetchImage('default.png', setImg, token)
   }, [userProfile.picturePath])
 
+  const handleShowMyProfile = () => {
+    navigate(`/userProfile/${id}`)
+  };
   const content = (
     isGettingLoading
       ?
@@ -177,6 +182,9 @@ const Settings: React.FC = () => {
             onChange={handleImageUpload}
           />
         </div>
+        <button className="settings-showMyProfile" onClick={handleShowMyProfile}>
+          Show My Profile
+        </button>
         {/* other info container */}
         <div className="settings-info">
           {/* username */}

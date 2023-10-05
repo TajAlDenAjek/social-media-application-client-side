@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 import { selectCurrentId } from '../../features/auth/authSlice'
 import './singlepost.css'
 import { Link } from 'react-router-dom'
+
+
+
 const SinglePost = () => {
     const curId = location.pathname.split('/')[2];
     const id=useSelector(selectCurrentId)
