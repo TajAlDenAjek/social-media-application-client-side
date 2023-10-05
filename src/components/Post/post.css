@@ -51,6 +51,11 @@
     font-size: inherit;
     text-decoration: inherit;
 }
+.post-header a{
+    color:inherit;
+    font-size: inherit;
+    text-decoration: inherit;
+}
 .post-profile-picture{
     width: 40px;
     height: 40px;

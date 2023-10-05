@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound/NotFound"
 import TopBar from "./components/topBar/TopBar"
 import Settings from "./pages/Settings/Settings"
 import SinglePost from "./pages/SinglePost/SinglePost"
-
+import UserProfilePage from "./pages/UserProfile/UserProfilePage"
 function App() {
 
 
@@ -28,6 +28,8 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="home" element={<Home />} />
               <Route path="settings" element={<Settings />} />
+              {/* user profile by id  */}
+              <Route path='/userProfile/:usertId' element={<UserProfilePage/>} />
               {/* Single Post page route */}
               <Route path='/post/:postId' element={<SinglePost />} />
             </Route>

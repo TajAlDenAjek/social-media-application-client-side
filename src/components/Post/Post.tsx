@@ -126,7 +126,9 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
       <div className="post-header">
         <img src={profilePicture} alt="Profile Picture" className="post-profile-picture" />
         <div>
-          <h3 className="post-author">{post.User.username}</h3>
+          <Link to={`/userProfile/${post.userId}`}>
+            <h3 className="post-author">{post.User.username}</h3>
+          </Link>
           <p className="post-time">{post.createdAt}</p>
         </div>
         {
