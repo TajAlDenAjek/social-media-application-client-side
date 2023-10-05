@@ -1,7 +1,6 @@
-
-
 .post-comment {
     display: flex;
+    box-sizing: border-box;
     margin: 10px;
     font-weight: normal;
     font-size: 14px;

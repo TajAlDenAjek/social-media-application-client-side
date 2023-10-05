@@ -20,7 +20,6 @@ export type PostType = {
 }
 
 
-
 export const postApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getPosts: builder.query({

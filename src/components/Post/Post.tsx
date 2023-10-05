@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { PostType } from '../../features/post/postApiSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Comment from '../Comment/Comment';
-import { Link } from 'react-router-dom';
 import { CommentType } from '../../features/comment/commentApiSlice';
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from '../../features/auth/authSlice'
 import { fetchImage } from '../SimpleImageFetcher';
-import { useUpdatePostMutation, useDeletePostMutation } from '../../features/post/postApiSlice';
-import { useNavigate } from 'react-router-dom';
+import { PostType,useUpdatePostMutation, useDeletePostMutation } from '../../features/post/postApiSlice';
+import { useNavigate ,Link} from 'react-router-dom';
 import './post.css'
 type PostProps = {
   post: PostType,
