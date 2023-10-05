@@ -9,6 +9,8 @@
 .home-search {
     width: 100%;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .home-search input {
@@ -16,9 +18,10 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    
 }
 
-.home-create-post button {
+.home-create-post {
     padding: 10px 20px;
     background-color: #333;
     color: #fff;
@@ -35,6 +38,8 @@
 .home-post-form form {
     display: flex;
     flex-direction: column;
+    margin: 10px;
+    margin-bottom: 25px;
 }
 
 .home-post-form input[type="file"],
@@ -53,4 +58,16 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.home-actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    /* align-items: center; */
+}
+
+.home-page-container button:hover{
+    background-color: #555;
 }

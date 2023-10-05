@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './home.css'
-import { useGetPostsAsNewsQuery, useCreatePostMutation, useGetPostsInSearchMutation } from '../../features/post/postApiSlice'
+import {
+  PostType,
+  useGetPostsAsNewsQuery,
+  useCreatePostMutation,
+  useGetPostsInSearchMutation
+} from '../../features/post/postApiSlice'
 import Post from '../../components/Post/Post'
-import { PostType } from '../../features/post/postApiSlice'
+import './home.css'
 
 type createdPost = {
   data: string | Object,
@@ -18,27 +21,28 @@ type searchReqType = {
     msg: String
   }
 } | any
+
+
 const Home = () => {
+
   // error messages
   const [errMsg, setErrMsg] = useState<string | string[] | null>('')
+
+  // show post form
   const [showPostForm, setShowPostForm] = useState(false);
+  // post creation info
   const [file, setFile] = useState(undefined);
   const [postText, setPostText] = useState('')
-  const [searchText, setSearchText] = useState('')
   const [createPost, { isLoading: isPosting }] = useCreatePostMutation()
-  const [startSearch, setStartSearch] = useState(false)
+  // search query and results
+  const [searchText, setSearchText] = useState('')
   const [searchContent, setSearchContent] = useState<any>(null)
   const [searchResult, setSearchResult] = useState<any>(null)
-  const handleCreatePost = () => {
-    setShowPostForm(true);
-  };
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement> | any) => {
-    const file = event.target.files[0];
-    setFile(file)
-  };
+  const [searchQuery, { isLoading: isSearching }] = useGetPostsInSearchMutation()
 
+  // main query in the page
   const { data: posts, isLoading, isSuccess, isError, error } = useGetPostsAsNewsQuery({})
-
+  // handle query options
   let content
   if (isLoading) {
     content = <h1>Loading...</h1>
@@ -49,29 +53,23 @@ const Home = () => {
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
-  const [searchQuery, { isLoading: isSearching, isSuccess: isSuccessSearch }] = useGetPostsInSearchMutation()
-  // search query request
-  useEffect(() => {
-    if (searchText !== '')
-      handleSearch()
-    else
-      setSearchContent('nothing')
-  }, [searchText])
+
+  // handle Searching function
   const handleSearch = async () => {
     if (searchText !== '') {
       const queryReq: searchReqType = await searchQuery(searchText)
       const posts: PostType[] = queryReq.data.posts
-
       setSearchContent(posts.map((post: PostType, index: number) => (
         <Post post={post} key={index} />
       )))
       setSearchResult(<h3>{posts.length} Search Results Found !! </h3>)
-
     }
   }
 
+
   // create query request
   const handleCreate = async (e: any) => {
+    e.preventDefault()
     setErrMsg([]);
     try {
       // set basic info and id 
@@ -109,21 +107,26 @@ const Home = () => {
         setErrMsg('Something Went Wrong !!')
     }
   };
+
+  // when the user type somthing in the search bar do the job for him
+  useEffect(() => {
+    if (searchText !== '')
+      handleSearch()
+  }, [searchText])
+
   return (
     <div className="home-page-container">
+
+      {/* search bar and post form */}
       <div className="home-actions">
         <div className="home-search">
           <input type="text" placeholder="Search" value={searchText} onChange={e => setSearchText(e.target.value)} />
-          {/* <button onClick={handleSearch}>{isSearching ? "Searching..." : 'Search'}</button> */}
+          <button className="home-create-post" onClick={() => { setShowPostForm(!showPostForm) }}>Add Post</button>
         </div>
-        <div className="home-create-post">
-          <button onClick={handleCreatePost}>Create Post</button>
-        </div>
-
         {showPostForm && (
           <div className="home-post-form">
             <form>
-              <input type="file" accept="image/*" onChange={handleImageUpload} />
+              <input type="file" accept="image/*" onChange={(e: React.ChangeEvent<HTMLInputElement> | any) => setFile(e.target.files[0])} />
               <textarea placeholder="Enter your post" onChange={e => setPostText(e.target.value)} value={postText} />
               {errMsg && <div className="error-message">{errMsg}</div>}
               <button type="submit" onClick={handleCreate}>{isPosting ? 'Posting...' : 'Post'}</button>
@@ -132,21 +135,22 @@ const Home = () => {
         )}
       </div>
 
-      {
-        searchText === ''
-          ? <>
+      {/* here goes the content */}
+        {
+          searchText === ''
+            ? <>
               <h1>Recent Posts </h1>
               {content}
             </>
-          : isSearching
-            ? <h1>Searching ...</h1>
-            : <>
+            : isSearching
+              ? <h1>Searching ...</h1>
+              : <>
                 <br />
                 {searchResult}
                 <br />
                 {searchContent}
               </>
-      }
+        }
     </div>
   )
 }
