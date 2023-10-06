@@ -44,7 +44,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `/user/profile/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Posts','Comments','Reactions']
+            invalidatesTags: ['Users','Posts','Comments','Reactions']
         }),
     })
 })
