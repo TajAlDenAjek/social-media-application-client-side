@@ -16,13 +16,51 @@ export type ReactionType={
 
 export const reactionApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        // getPosts: builder.query({
-            // query: (id) => `/post/all/${id}` 
-        // })
+        getReactions: builder.query({
+            query: (id) => `/reaction/all/${id}`, // user id 
+            providesTags: ['Reactions']
+        }),
+        getReaction: builder.query({
+            query: reactionId=> `/reaction/${reactionId}`,
+            providesTags: ['Reactions']
+        }),
+        createReaction: builder.mutation({
+            query: (data) => {
+                return {
+                    url: `/reaction/add/${data.postId}`,
+                    method: 'POST',
+                    body: {state:data.state},
+                    formData: true,
+                };
+            },
+            invalidatesTags: ['Posts','Reactions']
+        }),
+        updateReaction: builder.mutation({
+            query: data => {
+                return {
+                    url: `/reaction/edit/${data.reactionId}`,
+                    method: 'PATCH',
+                    body: {state:data.state},
+                    formData: true,
+                };
+            },
+            invalidatesTags: ['Posts','Reactions']
+        }),
+        deleteReaction: builder.mutation({
+            query: id => ({
+                url: `/reaction/delete/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Posts','Reactions']
+        }),
     })
 })
 
 
 export const {
-
+    useGetReactionsQuery,
+    useGetReactionQuery,
+    useCreateReactionMutation,
+    useUpdateReactionMutation,
+    useDeleteReactionMutation
 } = reactionApiSlice

@@ -43,7 +43,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
             query: id => ({
                 url: `/user/profile/${id}`,
                 method: 'DELETE',
-            })
+            }),
+            invalidatesTags: ['Posts','Comments','Reactions']
         }),
     })
 })

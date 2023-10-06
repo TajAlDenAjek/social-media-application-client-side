@@ -74,7 +74,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
                 url: `/post/delete/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Posts']
+            invalidatesTags: ['Posts','Comments','Reactions']
         }),
     })
 })
