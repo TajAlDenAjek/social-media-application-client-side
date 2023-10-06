@@ -42,6 +42,7 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
   const handleCreateComment=async()=>{
     if(commentText!==''){
       const res=await createComment({postId:post.id,text:commentText})
+      setCommentText('')
     }
   }
   // refrence to the input behined the image
@@ -117,8 +118,8 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
       fetchImage('default.png', setProfilePicture, token)
     if (post.picture)
       fetchImage(post.picture, setPostImage, token)
-    else if (post.picture === null)
-      fetchImage('default.png', setPostImage, token)
+    // else if (post.picture === null)
+    //   fetchImage('default.png', setPostImage, token)
   }, [])
 
   let content = (
@@ -161,7 +162,7 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
           isSameUser
             ?
             <>
-              <img src={postImage} alt="Post Image" onClick={uploadImage} style={{ cursor: "pointer" }} className="post-image" />
+              <img src={postImage} alt="Click to upload image" onClick={uploadImage} style={{ cursor: "pointer" }} className="post-image" />
               <input
                 type="file"
                 ref={fileInputRef}
@@ -169,7 +170,7 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
                 onChange={handleImageUpload}
               />
             </>
-            :
+            :postImage&&
             <img src={postImage} alt="Post Image" className="post-image" />
         }
       </div>
@@ -180,22 +181,23 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
         <span className="post-dislikes"><FontAwesomeIcon icon={faThumbsDown} />{post.dislikesCount}</span>
       </div>
       <div className="post-items">
-        {/* { */}
-        {/* // post.Comments.lenght  ? */}
+        {
+          post.Comments.length>=1&&
+          <div className="post-comments">
+            {post.Comments.map((comment: CommentType, index: number) => (
+              <Comment comment={comment} key={index} />
+            ))}
+          </div>
+        }
         <span className='post-comment-span'>
-          <input type="text" className="post-comment-input" placeholder='Write a comment.' 
+          <input type="text" className="post-comment-input" placeholder='comment here' 
           value={commentText}
           onChange={e=>setCommentText(e.target.value)}
           />
           
           <FontAwesomeIcon icon={faComment} style={{cursor:'pointer'}} title="post comment" onClick={handleCreateComment}/>
         </span>
-        <div className="post-comments">
-          {post.Comments.map((comment: CommentType, index: number) => (
-            <Comment comment={comment} key={index} />
-          ))}
-        </div>
-        {/* } */}
+    
       </div>
     </div>
   )
