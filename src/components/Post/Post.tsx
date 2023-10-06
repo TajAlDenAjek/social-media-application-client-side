@@ -4,10 +4,12 @@ import { faThumbsUp, faThumbsDown, faEdit, faTrash, faComment } from '@fortaweso
 import Comment from '../Comment/Comment';
 import { CommentType, useCreateCommentMutation } from '../../features/comment/commentApiSlice';
 import { useSelector } from 'react-redux'
-import { selectCurrentToken } from '../../features/auth/authSlice'
+import { selectCurrentToken, selectCurrentId } from '../../features/auth/authSlice'
 import { fetchImage } from '../SimpleImageFetcher';
 import { PostType, useUpdatePostMutation, useDeletePostMutation } from '../../features/post/postApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import { ReactionType, useCreateReactionMutation, useUpdateReactionMutation, useDeleteReactionMutation } from '../../features/reaction/reactionApiSlice';
+
 
 import './post.css'
 type PostProps = {
@@ -29,6 +31,57 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
   const [updatePostMethod, { }] = useUpdatePostMutation()
   const [deletePostMethod, { }] = useDeletePostMutation()
   const [postText, setPostText] = useState(post.text)
+
+  const id = useSelector(selectCurrentId)
+  const [reactionState, setReactionState] = useState('')
+  const [reactionId,setReactionId]=useState(null)
+  const [createReaction,{}]=useCreateReactionMutation()
+  const [updateReaction,{}]=useUpdateReactionMutation()
+  const [deleteReaction,{}]=useDeleteReactionMutation()
+
+  const handleLike=async()=>{
+    if(reactionState==='nothing'){
+      const res:any=await createReaction({postId:post.id,state:"like"})
+      setReactionState("like")
+      setReactionId(res.data.id)
+    }else if(reactionState==='like'){
+      await deleteReaction(reactionId)
+      setReactionState('nothing')
+    }else{
+      await updateReaction({reactionId,state:"like"})
+      setReactionState('like')
+    }
+  }
+  const handleDisLike=async()=>{
+    if(reactionState==='nothing'){
+      const res:any=await createReaction({postId:post.id,state:"dislike"})
+      setReactionState("dislike")
+      setReactionId(res.data.id)
+    }else if(reactionState==='dislike'){
+      await deleteReaction(reactionId)
+      setReactionState('nothing')
+    }else{
+      await updateReaction({reactionId,state:"dislike"})
+      setReactionState('dislike')
+    }
+  }
+
+  useEffect(() => {
+
+    let reactionFillter = 'nothing';
+    let reactionId=null
+    post.Reactions.forEach((reaction: ReactionType) => {
+      if (reaction.userId === id) {
+        reactionFillter = reaction.state
+        reactionId=reaction.id
+        return;
+      }
+    })
+    setReactionId(reactionId)
+    setReactionState(reactionFillter)
+  }, [])
+
+  // post.Reactions.map
   const navigate = useNavigate()
   const token = useSelector(selectCurrentToken)
   // error messages
@@ -36,12 +89,12 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
 
 
   // comment
-  const [commentText,setCommentText]=useState('')
-  const [createComment,{}]=useCreateCommentMutation()
+  const [commentText, setCommentText] = useState('')
+  const [createComment, { }] = useCreateCommentMutation()
 
-  const handleCreateComment=async()=>{
-    if(commentText!==''){
-      const res=await createComment({postId:post.id,text:commentText})
+  const handleCreateComment = async () => {
+    if (commentText !== '') {
+      const res = await createComment({ postId: post.id, text: commentText })
       setCommentText('')
     }
   }
@@ -170,19 +223,19 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
                 onChange={handleImageUpload}
               />
             </>
-            :postImage&&
+            : postImage &&
             <img src={postImage} alt="Post Image" className="post-image" />
         }
       </div>
       <div className="post-counts">
 
-        <span className="post-likes"><FontAwesomeIcon icon={faThumbsUp} />{post.likesCount}</span>
+        <span className="post-likes" style={{color:(reactionState==='like'?'#333':'inherit')}}><FontAwesomeIcon icon={faThumbsUp} onClick={handleLike} />{post.likesCount}</span>
 
-        <span className="post-dislikes"><FontAwesomeIcon icon={faThumbsDown} />{post.dislikesCount}</span>
+        <span className="post-dislikes" style={{color:(reactionState==='dislike'?'#333':'inherit')}}><FontAwesomeIcon icon={faThumbsDown} onClick={handleDisLike}/>{post.dislikesCount}</span>
       </div>
       <div className="post-items">
         {
-          post.Comments.length>=1&&
+          post.Comments.length >= 1 &&
           <div className="post-comments">
             {post.Comments.map((comment: CommentType, index: number) => (
               <Comment comment={comment} key={index} />
@@ -190,14 +243,14 @@ const Post: React.FC<PostProps> = ({ post, isSameUser }) => {
           </div>
         }
         <span className='post-comment-span'>
-          <input type="text" className="post-comment-input" placeholder='comment here' 
-          value={commentText}
-          onChange={e=>setCommentText(e.target.value)}
+          <input type="text" className="post-comment-input" placeholder='comment here'
+            value={commentText}
+            onChange={e => setCommentText(e.target.value)}
           />
-          
-          <FontAwesomeIcon icon={faComment} style={{cursor:'pointer'}} title="post comment" onClick={handleCreateComment}/>
+
+          <FontAwesomeIcon icon={faComment} style={{ cursor: 'pointer' }} title="post comment" onClick={handleCreateComment} />
         </span>
-    
+
       </div>
     </div>
   )

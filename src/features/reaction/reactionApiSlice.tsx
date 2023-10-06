@@ -11,9 +11,6 @@ export type ReactionType={
     User:UserType
 }
 
-
-
-
 export const reactionApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getReactions: builder.query({

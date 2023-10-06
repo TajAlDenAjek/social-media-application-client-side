@@ -3,6 +3,7 @@ import { useGetProfileMutation, UserProfile } from '../../features/user/userApiS
 import { fetchImage } from "../../components/SimpleImageFetcher";
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../../features/auth/authSlice';
+import Reactions from '../Reactions/Reactions';
 import Posts from '../Posts/Posts';
 import Comments from '../Comments/Comments';
 import { Link } from 'react-router-dom';
@@ -107,7 +108,7 @@ const UserProfilePage = () => {
                 : option==='comments' 
                 ?<Comments userId={Number(curId)}/>
 
-                  : <h1>Not implemented</h1>
+                  : <Reactions userId={Number(curId)}/>
             }
         </div>
       )

@@ -88,9 +88,10 @@
 .post-counts{
     width: inherit;
     display: flex;
+    color:#777;
     justify-content: space-around;
     border-radius: 25px;
-    border: 0.5px solid rgb(1, 1, 1);
+    border: 0.5px solid #999;
 }
 
 
@@ -133,4 +134,10 @@
     margin-right: 15px;
     width: 100%;
     font-size: medium;
+}
+
+.post-likes,
+.post-dislikes{
+    cursor: pointer;
+
 }

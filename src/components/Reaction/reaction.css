@@ -1,0 +1,41 @@
+.reaction-container{
+    display: flex;
+    width: 100%;
+    /* justify-self: flex-start; */
+    /* justify-content: space-around; */
+
+    /* align-items: center; */
+    margin: 25px;
+    margin-left: 75px;
+    align-content: center;
+    font-size: larger;
+    color: inherit;
+
+}
+
+.reaction-info{
+    display: flex;
+}
+
+.reaction-info a{
+    color: inherit;
+    text-decoration: inherit;
+}
+.reaction-info h4{
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.reaction-info p a {
+    margin-left: 25px;
+}
+
+.reaction-actions{
+    display: flex;
+    justify-self: flex-end;
+    background-color: red;    
+}
+.reaction-text{
+    display: flex;
+
+}
