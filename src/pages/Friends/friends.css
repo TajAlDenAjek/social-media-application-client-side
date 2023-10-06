@@ -1,0 +1,49 @@
+.friends-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.friends-tabs {
+    font-weight: bolder;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.friends-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.friends-tab.active {
+    background-color: #aaa;
+}
+
+.friends-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.friends-page {
+    display: none;
+}
+
+.friends-page.active {
+    display: block;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .friends-tabs {
+        flex-wrap: wrap;
+    }
+
+    .friends-tab {
+        flex-basis: 50%;
+    }
+}
