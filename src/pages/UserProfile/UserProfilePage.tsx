@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetProfileMutation, UserProfile } from '../../features/user/userApiSlice';
 import { fetchImage } from "../../components/SimpleImageFetcher";
 import { useSelector } from 'react-redux';
-import { selectCurrentToken } from '../../features/auth/authSlice';
+import { selectCurrentToken,selectCurrentId } from '../../features/auth/authSlice';
 import Reactions from '../Reactions/Reactions';
 import Posts from '../Posts/Posts';
 import Comments from '../Comments/Comments';
@@ -20,7 +20,7 @@ type ResultProfileType = {
 const UserProfilePage = () => {
   // requested user id 
   const curId = location.pathname.split('/')[2];
-
+  const id=useSelector(selectCurrentId)
   // Intial User State
   const [userProfile, setUserProfile] = useState<UserProfile>({
     username: '', password: '', email: '',
@@ -29,9 +29,10 @@ const UserProfilePage = () => {
     picturePath: '', state: undefined
   })
 
+  const [notAuthorized, setNotAuthorized] = useState(false)
   const [option, setOption] = useState('posts')
   const [img, setImg] = useState('')
-  const [getUserProfile, { isLoading }] = useGetProfileMutation()
+  const [getUserProfile, { isLoading, isError, error }] = useGetProfileMutation()
   const token = useSelector(selectCurrentToken)
 
   // get profile info from the backend server
@@ -40,12 +41,13 @@ const UserProfilePage = () => {
       // query request 
       const result: ResultProfileType = await getUserProfile({ id: curId })
       let data: ResultProfileType = result.data
-
       // set the recevied values 
       Object.keys(data).map((attribute: any) => {
         // to keep controlling the html values 
         if (data[attribute] === null)
           data = { ...data, [attribute]: 'no info' }
+        if (data[attribute] === null && attribute === 'state')
+          data = { ...data, [attribute]: 'not friends' }
         // show only the year month and day from Date values
         if (attribute === 'createdAt' || (attribute === 'birthday' && data[attribute]))
           data = { ...data, [attribute]: data[attribute].slice(0, 10) }
@@ -55,7 +57,8 @@ const UserProfilePage = () => {
           [attribute]: data[attribute], // new value to update
         }))
       })
-    } catch (error) { window.alert('you are not authorized to see anything here') }
+    } catch (error) {
+    }
   }
   // first get the data from the backend
   useEffect(() => {
@@ -82,6 +85,7 @@ const UserProfilePage = () => {
             <img src={img} alt="Profile Picture" className="profile-picture" />
             <div className="profile-details">
               <h2>{userProfile.username}</h2>
+              {Number(id)!==Number(curId)&&<h2>{userProfile.state}</h2>}
               <p>First Name: {userProfile.firstName}</p>
               <p>Last Name: {userProfile.lastName}</p>
               <p>Gender: {userProfile.gender}</p>
@@ -102,18 +106,20 @@ const UserProfilePage = () => {
             </div>
           </div>
           <hr />
-            {
-              option === 'posts' 
-                ?<Posts userId={Number(curId)} />
-                : option==='comments' 
-                ?<Comments userId={Number(curId)}/>
+          {
+            option === 'posts'
+              ? <Posts userId={Number(curId)} />
+              : option === 'comments'
+                ? <Comments userId={Number(curId)} />
 
-                  : <Reactions userId={Number(curId)}/>
-            }
+                : <Reactions userId={Number(curId)} />
+          }
         </div>
       )
   )
-
+  if (notAuthorized) {
+    return <h1>you are not authorized to see this profile </h1>
+  }
   return content;
 }
 

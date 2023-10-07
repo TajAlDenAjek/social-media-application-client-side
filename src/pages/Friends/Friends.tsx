@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-
+import GlobalUsersSearch from '../../components/GlobalUsersSearch/GlobalUsersSearch';
 import './friends.css'
+
+
+
 
 const Friends: React.FC = () => {
     const [activeTab, setActiveTab] = useState('global');
@@ -51,7 +54,7 @@ const Friends: React.FC = () => {
             </div>
             <div className="friends-content">
                 <div className={`friends-page ${activeTab === 'global' ? 'active' : ''}`}>
-                    Content for Global Users
+                    <GlobalUsersSearch/>
                 </div>
                 <div className={`friends-page ${activeTab === 'my-friends' ? 'active' : ''}`}>
                     Content for My Friends

@@ -14,6 +14,7 @@ export type UserProfile = {
     state: "friends" | "not friends" | "pending" | "blocked" | undefined
 }
 export type UserType={
+    id?:number,
     username:string,
     picturePath:string|null
 }
