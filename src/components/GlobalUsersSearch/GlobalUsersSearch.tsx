@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useUsersSearchMutation } from '../../features/relationships/relationshipsApiSlice'
-
+import Users from '../Users/Users'
 import { UserType } from '../../features/user/userApiSlice'
-import User from '../User/User'
 import './globaluserssearch.css'
 
 type searchReqType = {
@@ -27,9 +26,7 @@ const GlobalUsersSearch = () => {
         if (searchText !== '') {
             const queryReq: searchReqType = await searchQuery(searchText)
             const users: UserType[] = queryReq.data.users
-            setSearchContent(users.map((user: UserType, index: number) => (
-                <User user={user} key={index} sendFriendRequst={true} />
-            )))
+            setSearchContent(<Users users={users} sendFriendRequst={true}/>)
             setSearchResult(<h3>{users.length} Search Results Found !! </h3>)
         }
     }
