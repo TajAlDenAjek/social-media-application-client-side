@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useUsersSearchMutation } from '../../features/relationships/relationshipsApiSlice'
+
 import { UserType } from '../../features/user/userApiSlice'
 import User from '../User/User'
 import './globaluserssearch.css'
