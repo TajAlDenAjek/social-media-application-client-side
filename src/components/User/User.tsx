@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane ,faXmark,faTrashArrowUp} from '@fortawesome/free-solid-svg-icons'
 
 type UserProps = {
     user: UserType,
@@ -47,11 +47,27 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
             <div className="user-actions">
                 {
                     (sendFriendRequst&&Number(id)!==Number(user.id))&&
-                    <FontAwesomeIcon icon={faPaperPlane} className='user-icon' 
+                    <FontAwesomeIcon icon={faPaperPlane} 
                         title='send friend request'
+                        className='user-icon user-icon-friendRequest' 
                         // onClick={handleSendFriendRequest}
                     />
-
+                }
+                {
+                    removeFriend&&
+                    <FontAwesomeIcon icon={faXmark}  
+                        title='remove friend'
+                        className='user-icon user-icon-removeFriend'
+                        // onClick={removeFriend}
+                    />
+                }
+                {
+                    blockFriend&&
+                    <FontAwesomeIcon icon={faTrashArrowUp}  
+                        title='block friend'
+                        className='user-icon user-icon-blockFriend'
+                        // onClick={blockFriend}
+                    />
                 }
             </div>
         </div>

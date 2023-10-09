@@ -26,7 +26,7 @@ const UserProfilePage = () => {
     username: '', password: '', email: '',
     createdAt: '', firstName: '', lastName: '',
     gender: 'male', birthday: '', country: '',
-    picturePath: '', state: undefined
+    picturePath: undefined, state: undefined
   })
 
   const [notAuthorized, setNotAuthorized] = useState(false)
@@ -44,7 +44,7 @@ const UserProfilePage = () => {
       // set the recevied values 
       Object.keys(data).map((attribute: any) => {
         // to keep controlling the html values 
-        if (data[attribute] === null)
+        if (data[attribute] === null && attribute !== 'picturePath')
           data = { ...data, [attribute]: 'no info' }
         if (data[attribute] === null && attribute === 'state')
           data = { ...data, [attribute]: 'not friends' }
@@ -68,7 +68,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     if (userProfile.picturePath)
       fetchImage(userProfile.picturePath, setImg, token)
-    else if (userProfile.picturePath === undefined)
+    else if (userProfile.picturePath === undefined ||userProfile.picturePath === null||userProfile.picturePath === 'no info')
       fetchImage('default.png', setImg, token)
   }, [userProfile.picturePath])
 
