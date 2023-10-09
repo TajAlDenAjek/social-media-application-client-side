@@ -43,15 +43,21 @@
 .user-icon:hover{
     color:#777;
 }
-.user-icon-friendRequest{
+.user-icon-friendRequest,
+.user-icon-unblock{
     color:blue;
 }
-.user-icon-removeFriend{
-    color:red;
-}
+
 .user-icon-blockFriend{
     color:red;
 }
-.user-icon-removeFriendRequest{
+.user-icon-removeFriendRequest,
+.user-icon-removeFriend,
+.user-icon-rejectRequest{
     color:red;
+
+}
+
+.user-icon-acceptRequest{
+    color:green;
 }

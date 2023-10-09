@@ -17,7 +17,7 @@ import {
 } from '../../features/relationships/relationshipsApiSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane, faXmark, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane, faXmark, faTrashArrowUp, faCheck ,faRefresh} from '@fortawesome/free-solid-svg-icons'
 
 type UserProps = {
     user: UserType,
@@ -35,9 +35,12 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
 
 
     const [sendRequest, { }] = useSendFriendRequestMutation()
-    const [removeFriendFun,{}]=useRemoveFriendMutation()
-    const [blockFriendFun,{}]=useBlockAFriendMutation()
-    const [removeFriendRequestFun,{}]=useDeleteFriendRequestMutation()
+    const [removeFriendFun, { }] = useRemoveFriendMutation()
+    const [blockFriendFun, { }] = useBlockAFriendMutation()
+    const [removeFriendRequestFun, { }] = useDeleteFriendRequestMutation()
+    const [rejectRequest, { }] = useRejectFriendRequestMutation()
+    const [acceptRequest, { }] = useAcceptFriendRequestMutation();
+    const [unBlockFunction, { }] = useUnBlockaUserMutation();
     const handleSendFriendRequest = async () => {
         try {
             await sendRequest(user.id)
@@ -55,10 +58,25 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
             await blockFriendFun(user.id)
         } catch (error) { }
     }
-    const handleRemoveFriendRequest=async()=>{
-        try{
+    const handleRemoveFriendRequest = async () => {
+        try {
             await removeFriendRequestFun(user.relationId)
-        }catch(error){}
+        } catch (error) { }
+    }
+    const handleRejectRequest = async () => {
+        try {
+            await rejectRequest(user.relationId)
+        } catch (error) { }
+    }
+    const handleAcceptRequest = async () => {
+        try {
+            await acceptRequest(user.relationId)
+        } catch (error) { }
+    }
+    const handleUnBlock = async () => {
+        try {
+            await unBlockFunction(user.id)
+        } catch (error) { }
     }
     // normal fetch request to a static image on the backend 
     useEffect(() => {
@@ -101,11 +119,34 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
                     />
                 }
                 {
-                    removeFriendRequest&&
+                    removeFriendRequest &&
                     <FontAwesomeIcon icon={faXmark}
                         title='remove friend request'
                         className='user-icon user-icon-removeFriendRequest'
                         onClick={handleRemoveFriendRequest}
+                    />
+                }
+                {
+                    receivedFriendRequest &&
+                    <>
+                        <FontAwesomeIcon icon={faXmark}
+                            title='reject request'
+                            className='user-icon user-icon-rejectRequest'
+                            onClick={handleRejectRequest}
+                        />
+                        <FontAwesomeIcon icon={faCheck}
+                            title='accept request'
+                            className='user-icon user-icon-acceptRequest'
+                            onClick={handleAcceptRequest}
+                        />
+                    </>
+                }
+                {
+                    unBlockUser &&
+                    <FontAwesomeIcon icon={faRefresh}
+                        title='unblock user'
+                        className='user-icon user-icon-unblock'
+                        onClick={handleUnBlock}
                     />
                 }
             </div>
