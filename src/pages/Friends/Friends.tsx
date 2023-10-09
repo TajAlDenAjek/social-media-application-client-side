@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GlobalUsersSearch from '../../components/GlobalUsersSearch/GlobalUsersSearch';
 import CurrrentFriends from '../../components/CurrentFriends/CurrrentFriends';
+import PendingFriendRequests from '../../components/PendingFriendRequests/PendingFriendRequests';
 import './friends.css'
 
 
@@ -61,7 +62,7 @@ const Friends: React.FC = () => {
                     <CurrrentFriends />
                 </div>
                 <div className={`friends-page ${activeTab === 'pending-sent' ? 'active' : ''}`}>
-                    Content for Pending Sent Requests
+                    <PendingFriendRequests/>
                 </div>
                 <div className={`friends-page ${activeTab === 'pending-received' ? 'active' : ''}`}>
                     Content for Pending Received Requests
