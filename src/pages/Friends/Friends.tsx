@@ -4,6 +4,7 @@ import CurrrentFriends from '../../components/CurrentFriends/CurrrentFriends';
 import PendingFriendRequests from '../../components/PendingFriendRequests/PendingFriendRequests';
 import ReceivedRequests from '../../components/ReceivedRequets/ReceivedRequests';
 import BlockedList from '../../components/BlockedList/BlockedList';
+import UsersWhoBlockedYou from '../../components/UsersWhoBlockedYou/UsersWhoBlockedYou';
 import './friends.css'
 
 
@@ -73,7 +74,7 @@ const Friends: React.FC = () => {
                     <BlockedList/>
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-you' ? 'active' : ''}`}>
-                    Content for Users Who Blocked You
+                    <UsersWhoBlockedYou/>
                 </div>
             </div>
         </div>
