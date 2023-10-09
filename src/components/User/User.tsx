@@ -3,13 +3,21 @@ import { UserType } from '../../features/user/userApiSlice'
 import { Link } from 'react-router-dom'
 import { fetchImage } from '../SimpleImageFetcher'
 import './user.css'
-import { selectCurrentToken,selectCurrentId } from '../../features/auth/authSlice'
+import { selectCurrentToken, selectCurrentId } from '../../features/auth/authSlice'
 import { useSelector } from 'react-redux'
 
-
+import {
+    useSendFriendRequestMutation,
+    useRemoveFriendMutation,
+    useBlockAFriendMutation,
+    useDeleteFriendRequestMutation,
+    useAcceptFriendRequestMutation,
+    useRejectFriendRequestMutation,
+    useUnBlockaUserMutation,
+} from '../../features/relationships/relationshipsApiSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane ,faXmark,faTrashArrowUp} from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane, faXmark, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 type UserProps = {
     user: UserType,
@@ -23,12 +31,35 @@ type UserProps = {
 const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest, removeFriend, blockFriend, receivedFriendRequest, unBlockUser }) => {
     const [profilePicture, setProfilePicture] = useState('')
     const token = useSelector(selectCurrentToken)
-    const id=useSelector(selectCurrentId)
+    const id = useSelector(selectCurrentId)
 
 
+    const [sendRequest, { }] = useSendFriendRequestMutation()
+    const [removeFriendFun,{}]=useRemoveFriendMutation()
+    const [blockFriendFun,{}]=useBlockAFriendMutation()
+    const [removeFriendRequestFun,{}]=useDeleteFriendRequestMutation()
+    const handleSendFriendRequest = async () => {
+        try {
+            await sendRequest(user.id)
+        } catch (error) { }
+    }
 
+    const handleRemoveFriend = async () => {
+        try {
+            await removeFriendFun(user.id)
+        } catch (error) { }
+    }
 
-
+    const handleBlockFriend = async () => {
+        try {
+            await blockFriendFun(user.id)
+        } catch (error) { }
+    }
+    const handleRemoveFriendRequest=async()=>{
+        try{
+            await removeFriendRequestFun(user.relationId)
+        }catch(error){}
+    }
     // normal fetch request to a static image on the backend 
     useEffect(() => {
         if (user.picturePath)
@@ -46,27 +77,35 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
             </div>
             <div className="user-actions">
                 {
-                    (sendFriendRequst&&Number(id)!==Number(user.id))&&
-                    <FontAwesomeIcon icon={faPaperPlane} 
+                    (sendFriendRequst && Number(id) !== Number(user.id)) &&
+                    <FontAwesomeIcon icon={faPaperPlane}
                         title='send friend request'
-                        className='user-icon user-icon-friendRequest' 
-                        // onClick={handleSendFriendRequest}
+                        className='user-icon user-icon-friendRequest'
+                        onClick={handleSendFriendRequest}
                     />
                 }
                 {
-                    removeFriend&&
-                    <FontAwesomeIcon icon={faXmark}  
+                    removeFriend &&
+                    <FontAwesomeIcon icon={faXmark}
                         title='remove friend'
                         className='user-icon user-icon-removeFriend'
-                        // onClick={removeFriend}
+                        onClick={handleRemoveFriend}
                     />
                 }
                 {
-                    blockFriend&&
-                    <FontAwesomeIcon icon={faTrashArrowUp}  
+                    blockFriend &&
+                    <FontAwesomeIcon icon={faTrashArrowUp}
                         title='block friend'
                         className='user-icon user-icon-blockFriend'
-                        // onClick={blockFriend}
+                        onClick={handleBlockFriend}
+                    />
+                }
+                {
+                    removeFriendRequest&&
+                    <FontAwesomeIcon icon={faXmark}
+                        title='remove friend request'
+                        className='user-icon user-icon-removeFriendRequest'
+                        onClick={handleRemoveFriendRequest}
                     />
                 }
             </div>

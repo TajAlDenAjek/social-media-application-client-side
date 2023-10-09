@@ -17,7 +17,8 @@ export type UserType={
     id?:number,
     username:string,
     picturePath:string|null,
-    state?:string|null
+    state?:string|null,
+    relationId?:number,
 }
 
 export const userApiSlice = apiSlice.injectEndpoints({

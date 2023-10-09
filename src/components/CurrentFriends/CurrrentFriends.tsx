@@ -17,7 +17,7 @@ const CurrrentFriends = () => {
         let friends: any = friendUsers
         let users: UserType[] = []
         friends.forEach((friend: any) => {
-            users.push({ ...friend.friend })
+            users.push({ ...friend.friend,relationId:friend.id })
         });
         content = <Users users={users} removeFriend={true} blockFriend={true} />
     } else if (isError) {

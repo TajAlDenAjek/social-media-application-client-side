@@ -24,11 +24,11 @@ export const postApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getPosts: builder.query({
             query: (id) => `/post/all/${id}`,
-            providesTags: ['Posts']
+            providesTags: ['Posts','auth','Relationships','Users']
         }),
         getPostsAsNews: builder.query({
             query:() => `/home/news`,
-            providesTags: ['Posts']
+            providesTags: ['Posts','auth','Relationships','Users']
         }),
         getPostsInSearch: builder.mutation({
             query: text => ({

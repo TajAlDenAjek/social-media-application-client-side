@@ -16,9 +16,9 @@ const PendingFriendRequests = () => {
         let requests: any = pendingRequests
         let users: UserType[] = []
         requests.forEach((request: any) => {
-            users.push({ ...request.requestRecevier })
+            users.push({ ...request.requestRecevier,relationId:request.id })
         });
-        content = <Users users={users} removeFriend={true} blockFriend={true} />
+        content = <Users users={users} removeFriendRequest={true} />
     } else if (isError) {
         content = <div>{error.toString()}</div>
     }

@@ -12,23 +12,23 @@ export const relationshipsApiSlice = apiSlice.injectEndpoints({
         }),
         getFriends: builder.query({
             query: () => `/relationship/myFriends`,
-            providesTags: ['Relationships', 'Users']
+            providesTags: ['Relationships', 'Users','auth']
         }),
         getSentRequests: builder.query({
             query: () => `/relationship/mySentRequests`,
-            providesTags: ['Relationships', 'Users']
+            providesTags: ['Relationships', 'Users','auth']
         }),
         getReceivedRequests: builder.query({
             query: () => `/relationship/myReceivedRequests`,
-            providesTags: ['Relationships', 'Users']
+            providesTags: ['Relationships', 'Users','auth']
         }),
         getBlockedUsers: builder.query({
             query: () => `/relationship/myBlockedList`,
-            providesTags: ['Relationships', 'Users']
+            providesTags: ['Relationships', 'Users','auth']
         }),
         getWhoBlockedYouUsers: builder.query({
             query: () => '/relationship/whoBlockedMeList',
-            providesTags: ['Relationships', 'Users']
+            providesTags: ['Relationships', 'Users','auth']
         }),
         sendFriendRequest: builder.mutation({
             query: id => ({

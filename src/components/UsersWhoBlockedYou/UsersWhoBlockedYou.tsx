@@ -16,9 +16,9 @@ const UsersWhoBlockedYou = () => {
         let relations: any = Relationships
         let users: UserType[] = []
         relations.forEach((relation: any) => {
-            users.push({ ...relation.userBlockedMe })
+            users.push({ ...relation.userBlockedMe ,relationId:relation.id})
         });
-        content = <Users users={users} removeFriend={true} blockFriend={true} />
+        content = <Users users={users}/>
     } else if (isError) {
         content = <div>{error.toString()}</div>
     }
