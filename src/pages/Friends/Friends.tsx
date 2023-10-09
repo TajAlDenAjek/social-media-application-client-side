@@ -3,6 +3,7 @@ import GlobalUsersSearch from '../../components/GlobalUsersSearch/GlobalUsersSea
 import CurrrentFriends from '../../components/CurrentFriends/CurrrentFriends';
 import PendingFriendRequests from '../../components/PendingFriendRequests/PendingFriendRequests';
 import ReceivedRequests from '../../components/ReceivedRequets/ReceivedRequests';
+import BlockedList from '../../components/BlockedList/BlockedList';
 import './friends.css'
 
 
@@ -69,7 +70,7 @@ const Friends: React.FC = () => {
                     <ReceivedRequests/>
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-by-you' ? 'active' : ''}`}>
-                    Content for Blocked Users by You
+                    <BlockedList/>
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-you' ? 'active' : ''}`}>
                     Content for Users Who Blocked You
