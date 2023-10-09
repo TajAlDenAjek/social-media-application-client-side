@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GlobalUsersSearch from '../../components/GlobalUsersSearch/GlobalUsersSearch';
 import CurrrentFriends from '../../components/CurrentFriends/CurrrentFriends';
 import PendingFriendRequests from '../../components/PendingFriendRequests/PendingFriendRequests';
+import ReceivedRequests from '../../components/ReceivedRequets/ReceivedRequests';
 import './friends.css'
 
 
@@ -65,7 +66,7 @@ const Friends: React.FC = () => {
                     <PendingFriendRequests/>
                 </div>
                 <div className={`friends-page ${activeTab === 'pending-received' ? 'active' : ''}`}>
-                    Content for Pending Received Requests
+                    <ReceivedRequests/>
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-by-you' ? 'active' : ''}`}>
                     Content for Blocked Users by You
