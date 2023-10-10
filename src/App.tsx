@@ -12,6 +12,8 @@ import SinglePost from "./pages/SinglePost/SinglePost"
 import UserProfilePage from "./pages/UserProfile/UserProfilePage"
 import SingleComment from "./pages/SingleComment/SingleComment"
 import Friends from "./pages/Friends/Friends"
+import Chat from "./pages/Chat/Chat"
+
 function App() {
 
 
@@ -30,13 +32,15 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="home" element={<Home />} />
               <Route path="settings" element={<Settings />} />
-              <Route path='friends' element={<Friends/>}/>
+              <Route path='friends' element={<Friends />} />
               {/* user profile by id  */}
-              <Route path='/userProfile/:usertId' element={<UserProfilePage/>} />
+              <Route path='/userProfile/:usertId' element={<UserProfilePage />} />
               {/* Single Post page route */}
               <Route path='/post/:postId' element={<SinglePost />} />
               {/* Single Comment Page route */}
               <Route path='/comment/:commentId' element={<SingleComment />} />
+              {/* chat page  */}
+              <Route path='/chat/:userId' element={<Chat />} />
             </Route>
           </Route>
         </Routes>

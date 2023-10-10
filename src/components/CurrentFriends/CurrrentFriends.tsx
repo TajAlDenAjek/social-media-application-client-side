@@ -19,7 +19,7 @@ const CurrrentFriends = () => {
         friends.forEach((friend: any) => {
             users.push({ ...friend.friend,relationId:friend.id })
         });
-        content = <Users users={users} removeFriend={true} blockFriend={true} />
+        content = <Users users={users} removeFriend={true} blockFriend={true} chat={true} />
     } else if (isError) {
         content = <div>{error.toString()}</div>
     }

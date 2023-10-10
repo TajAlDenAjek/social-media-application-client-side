@@ -2,25 +2,27 @@ import React from 'react'
 import User from '../User/User'
 import { UserType } from '../../features/user/userApiSlice'
 import './users.css'
-type UsersProps={
-    users:UserType[],
+type UsersProps = {
+    users: UserType[],
     sendFriendRequst?: boolean,
     removeFriendRequest?: boolean,
     removeFriend?: boolean,
     blockFriend?: boolean,
     receivedFriendRequest?: boolean,
     unBlockUser?: boolean,
+    chat?:boolean,
 }
-const Users:React.FC<UsersProps> = ({ users, sendFriendRequst, removeFriendRequest, removeFriend, blockFriend, receivedFriendRequest, unBlockUser }) => {
+const Users: React.FC<UsersProps> = ({ users, chat, sendFriendRequst, removeFriendRequest, removeFriend, blockFriend, receivedFriendRequest, unBlockUser }) => {
 
-    const content=users.map((user: UserType, index: number) => (
+    const content = users.map((user: UserType, index: number) => (
         <User user={user} key={index}
-            sendFriendRequst={sendFriendRequst} 
+            sendFriendRequst={sendFriendRequst}
             removeFriendRequest={removeFriendRequest}
             removeFriend={removeFriend}
             blockFriend={blockFriend}
             receivedFriendRequest={receivedFriendRequest}
             unBlockUser={unBlockUser}
+            chat={chat}
         />
     ))
     return (

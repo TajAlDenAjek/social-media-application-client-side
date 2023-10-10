@@ -17,7 +17,7 @@ import {
 } from '../../features/relationships/relationshipsApiSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane, faXmark, faTrashArrowUp, faCheck ,faRefresh} from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane, faXmark, faTrashArrowUp, faCheck, faRefresh, faFileText } from '@fortawesome/free-solid-svg-icons'
 
 type UserProps = {
     user: UserType,
@@ -27,8 +27,9 @@ type UserProps = {
     blockFriend?: boolean,
     receivedFriendRequest?: boolean,
     unBlockUser?: boolean,
+    chat?: boolean,
 }
-const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest, removeFriend, blockFriend, receivedFriendRequest, unBlockUser }) => {
+const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest, removeFriend, blockFriend, receivedFriendRequest, unBlockUser, chat }) => {
     const [profilePicture, setProfilePicture] = useState('')
     const token = useSelector(selectCurrentToken)
     const id = useSelector(selectCurrentId)
@@ -94,6 +95,16 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
                 </Link>
             </div>
             <div className="user-actions">
+                {
+                    chat &&
+                    <Link to={`/chat/${user.id}`} >
+
+                        <FontAwesomeIcon icon={faFileText}
+                            title='start chatting'
+                            className='user-icon user-icon-chat'
+                        />
+                    </Link>
+                }
                 {
                     (sendFriendRequst && Number(id) !== Number(user.id)) &&
                     <FontAwesomeIcon icon={faPaperPlane}
