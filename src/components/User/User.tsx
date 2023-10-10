@@ -97,7 +97,7 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
             <div className="user-actions">
                 {
                     chat &&
-                    <Link to={`/chat/${user.id}`} >
+                    <Link to={`/chat/${user.id}`} state={{user:user}}>
 
                         <FontAwesomeIcon icon={faFileText}
                             title='start chatting'
