@@ -5,7 +5,8 @@ export const chatApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getMessages: builder.query({
             query: (id) => `/chat/messages/${id}`, // user id 
-            providesTags: ['Chat']
+            providesTags: ['Chat'],
+            keepUnusedDataFor: 0.0001
         }),
     })
 })

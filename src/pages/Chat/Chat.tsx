@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { initStateReducer, addMessage } from '../../features/chat/chatSlice'
-import { selectCurrentToken } from '../../features/auth/authSlice'
+import { selectCurrentToken, selectCurrentId } from '../../features/auth/authSlice'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { fetchImage } from '../../components/SimpleImageFetcher'
 import { useGetMessagesQuery } from '../../features/chat/chatApiSlice'
-import { MessageType } from '../../features/chat/chatSlice'
 import { io } from 'socket.io-client'
 import { selectCurrentChat } from '../../features/chat/chatSlice'
+import Message from '../../components/Message/Message'
 let SERVER_SIDE = import.meta.env.VITE_REACT_API_KEY
 const socket = io(String(SERVER_SIDE))
 import './chat.css'
-import { createNextState } from '@reduxjs/toolkit'
 
 const Chat = () => {
     const [profilePicture, setProfilePicture] = useState('')
@@ -22,16 +21,18 @@ const Chat = () => {
     const [messageText, setMessageText] = useState('')
     const { user } = location.state
     const token = useSelector(selectCurrentToken)
-
+    const id = useSelector(selectCurrentId)
     const {
         data: messages,
         isLoading,
         isSuccess,
         isError,
         error
-    } = useGetMessagesQuery(user.id)
+    } = useGetMessagesQuery(user.id,{ refetchOnMountOrArgChange: true })
     let content
-
+    useEffect(()=>{
+        socket.off('Receive Message');
+    },[])
 
     const handleMessage = () => {
         if (messageText !== '') {
@@ -59,11 +60,10 @@ const Chat = () => {
         } else if (isError) {
             content = <div>{error.toString()}</div>
         }
-        
+
     }, [isSuccess])
 
     const chat = useSelector(selectCurrentChat);
-    
     return (
         <div className='chat-container'>
             <div className="chat-card">
@@ -75,8 +75,8 @@ const Chat = () => {
                 </div>
                 <div className="chat-messages">
                     {
-                        chat.map((message,index)=>(
-                            <p key={index}>{message.message}</p>
+                        chat.map((message, index) => (
+                            <Message key={index} message={message}/>
                         ))
                     }
                 </div>

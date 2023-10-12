@@ -98,7 +98,6 @@ const User: React.FC<UserProps> = ({ user, sendFriendRequst, removeFriendRequest
                 {
                     chat &&
                     <Link to={`/chat/${user.id}`} state={{user:user}}>
-
                         <FontAwesomeIcon icon={faFileText}
                             title='start chatting'
                             className='user-icon user-icon-chat'

@@ -30,12 +30,15 @@
 }
 
 .chat-messages{
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
     flex-grow: 1;
     background-color: #ddd;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 10px;
     /* width: 100%; */
+    padding: 10px;
 
 }
 
