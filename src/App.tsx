@@ -13,7 +13,7 @@ import UserProfilePage from "./pages/UserProfile/UserProfilePage"
 import SingleComment from "./pages/SingleComment/SingleComment"
 import Friends from "./pages/Friends/Friends"
 import Chat from "./pages/Chat/Chat"
-
+import Groups from "./pages/Groups/Groups"
 function App() {
 
 
@@ -33,6 +33,7 @@ function App() {
               <Route path="home" element={<Home />} />
               <Route path="settings" element={<Settings />} />
               <Route path='friends' element={<Friends />} />
+              <Route path='groups' element={<Groups />} />
               {/* user profile by id  */}
               <Route path='/userProfile/:usertId' element={<UserProfilePage />} />
               {/* Single Post page route */}
