@@ -136,21 +136,21 @@ const Home = () => {
       </div>
 
       {/* here goes the content */}
-        {
-          searchText === ''
-            ? <>
-              <h1>Recent Posts </h1>
-              {content}
+      {
+        searchText === ''
+          ? <>
+            <h1>Recent Posts </h1>
+            {content}
+          </>
+          : isSearching
+            ? <h1>Searching ...</h1>
+            : <>
+              <br />
+              {searchResult}
+              <br />
+              {searchContent}
             </>
-            : isSearching
-              ? <h1>Searching ...</h1>
-              : <>
-                <br />
-                {searchResult}
-                <br />
-                {searchContent}
-              </>
-        }
+      }
     </div>
   )
 }

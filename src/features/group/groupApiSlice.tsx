@@ -1,6 +1,6 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
-type GroupUserType={
+export type GroupUserType={
     id:number,
     groupId:number,
     userId:number,
@@ -10,7 +10,7 @@ type GroupUserType={
     GroupId:number,
     UserId:number
 }
-type GroupType={
+export type GroupType={
     id:number,
     groupName:string,
     groupDescription:string,
@@ -19,7 +19,7 @@ type GroupType={
     updatedAt:string,
     GroupUser?:GroupUserType
 }
-type SingleGroup={
+export type SingleGroup={
     msg:string,
     group:GroupType,
     role:'Owner'|'Admin'|'normal'|'pending'|'kicked'

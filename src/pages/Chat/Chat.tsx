@@ -28,11 +28,11 @@ const Chat = () => {
         isSuccess,
         isError,
         error
-    } = useGetMessagesQuery(user.id,{ refetchOnMountOrArgChange: true })
+    } = useGetMessagesQuery(user.id, { refetchOnMountOrArgChange: true })
     let content
-    useEffect(()=>{
+    useEffect(() => {
         socket.off('Receive Message');
-    },[])
+    }, [])
 
     const handleMessage = () => {
         if (messageText !== '') {
@@ -76,7 +76,7 @@ const Chat = () => {
                 <div className="chat-messages">
                     {
                         chat.map((message, index) => (
-                            <Message key={index} message={message}/>
+                            <Message key={index} message={message} />
                         ))
                     }
                 </div>

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 const SinglePost = () => {
     const curId = location.pathname.split('/')[2];
-    const id=useSelector(selectCurrentId)
+    const id = useSelector(selectCurrentId)
     const {
         data: post,
         isLoading,
@@ -23,7 +23,7 @@ const SinglePost = () => {
     if (isLoading) {
         content = <h1>Loading...</h1>
     } else if (isSuccess) {
-        let isSameUser:boolean=(id===post.userId?true:false)
+        let isSameUser: boolean = (id === post.userId ? true : false)
         content = <Post post={post} isSameUser={isSameUser} />
 
     } else if (isError) {

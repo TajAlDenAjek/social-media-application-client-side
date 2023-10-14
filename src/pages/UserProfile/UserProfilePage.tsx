@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetProfileMutation, UserProfile } from '../../features/user/userApiSlice';
 import { fetchImage } from "../../components/SimpleImageFetcher";
 import { useSelector } from 'react-redux';
-import { selectCurrentToken,selectCurrentId } from '../../features/auth/authSlice';
+import { selectCurrentToken, selectCurrentId } from '../../features/auth/authSlice';
 import Reactions from '../Reactions/Reactions';
 import Posts from '../Posts/Posts';
 import Comments from '../Comments/Comments';
@@ -20,7 +20,7 @@ type ResultProfileType = {
 const UserProfilePage = () => {
   // requested user id 
   const curId = location.pathname.split('/')[2];
-  const id=useSelector(selectCurrentId)
+  const id = useSelector(selectCurrentId)
   // Intial User State
   const [userProfile, setUserProfile] = useState<UserProfile>({
     username: '', password: '', email: '',
@@ -68,7 +68,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     if (userProfile.picturePath)
       fetchImage(userProfile.picturePath, setImg, token)
-    else if (userProfile.picturePath === undefined ||userProfile.picturePath === null||userProfile.picturePath === 'no info')
+    else if (userProfile.picturePath === undefined || userProfile.picturePath === null || userProfile.picturePath === 'no info')
       fetchImage('default.png', setImg, token)
   }, [userProfile.picturePath])
 
@@ -85,7 +85,7 @@ const UserProfilePage = () => {
             <img src={img} alt="Profile Picture" className="profile-picture" />
             <div className="profile-details">
               <h2>{userProfile.username}</h2>
-              {Number(id)!==Number(curId)&&<h2>{userProfile.state}</h2>}
+              {Number(id) !== Number(curId) && <h2>{userProfile.state}</h2>}
               <p>First Name: {userProfile.firstName}</p>
               <p>Last Name: {userProfile.lastName}</p>
               <p>Gender: {userProfile.gender}</p>

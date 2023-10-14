@@ -21,7 +21,7 @@ const Comments: React.FC<CommentsProps> = ({ userId }) => {
         content = <h1>Loading...</h1>
     } else if (isSuccess) {
         content = comments.map((comment: CommentType, index: number) => (
-            <Comment comment={comment} key={index} isRenderingOutPost={true}/>
+            <Comment comment={comment} key={index} isRenderingOutPost={true} />
         ))
     } else if (isError) {
         content = <div>{error.toString()}</div>

@@ -13,12 +13,12 @@ export type UserProfile = {
     picturePath: string | undefined,
     state: "friends" | "not friends" | "pending" | "blocked" | undefined
 }
-export type UserType={
-    id?:number,
-    username:string,
-    picturePath:string|null,
-    state?:string|null,
-    relationId?:number,
+export type UserType = {
+    id?: number,
+    username: string,
+    picturePath: string | null,
+    state?: string | null,
+    relationId?: number,
 }
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -33,7 +33,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             query: data => {
                 const bodyFormData = new FormData();
                 bodyFormData.append('image', data.image);
-                bodyFormData.append('data',data.data);
+                bodyFormData.append('data', data.data);
                 return {
                     url: `/user/profile/${data.id}`,
                     method: 'PATCH',
@@ -47,7 +47,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `/user/profile/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Users','Posts','Comments','Reactions']
+            invalidatesTags: ['Users', 'Posts', 'Comments', 'Reactions']
         }),
     })
 })

@@ -33,7 +33,7 @@ function App() {
               <Route path="home" element={<Home />} />
               <Route path="settings" element={<Settings />} />
               <Route path='friends' element={<Friends />} />
-              <Route path='groups' element={<Groups />} />
+              {/* <Route path='groups' element={<Groups />} /> */}
               {/* user profile by id  */}
               <Route path='/userProfile/:usertId' element={<UserProfilePage />} />
               {/* Single Post page route */}

@@ -18,7 +18,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    
+
 }
 
 .home-create-post {
@@ -60,7 +60,7 @@
     cursor: pointer;
 }
 
-.home-actions{
+.home-actions {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -68,6 +68,6 @@
     /* align-items: center; */
 }
 
-.home-page-container button:hover{
+.home-page-container button:hover {
     background-color: #555;
 }

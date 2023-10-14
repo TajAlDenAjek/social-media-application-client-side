@@ -57,9 +57,11 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .register-button:hover {
     background-color: #555;
 }
+
 .error-message {
     color: red;
     margin: 20px;
@@ -78,9 +80,10 @@
     margin-bottom: 10px;
 }
 
-.have-account-card  p {
+.have-account-card p {
     color: #888;
 }
+
 .have-account-link {
     text-decoration: none;
 }

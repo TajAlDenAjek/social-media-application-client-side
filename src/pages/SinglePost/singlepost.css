@@ -1,4 +1,4 @@
-.post-page-container{
+.post-page-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,4 +20,3 @@
 .post-page-container button:hover {
     background-color: #555;
 }
-

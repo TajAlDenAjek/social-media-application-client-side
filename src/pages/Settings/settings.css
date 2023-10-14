@@ -92,12 +92,12 @@
   background-color: rgb(16, 187, 16);
 }
 
-.settings-showMyProfile{
+.settings-showMyProfile {
   background-color: #333;
 }
 
 .settings-showMyProfile:hover,
-.settings-update-btn:hover ,
-.settings-delete-btn:hover{
-  background-color:  #555;
+.settings-update-btn:hover,
+.settings-delete-btn:hover {
+  background-color: #555;
 }

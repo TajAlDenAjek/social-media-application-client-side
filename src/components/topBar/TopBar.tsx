@@ -39,7 +39,7 @@ const TopBar = () => {
                     <ul>
                         <li><Link to="/home" onClick={closeExpanded}>Home</Link> </li>
                         <li><Link to="/friends" onClick={closeExpanded}>Friends</Link></li>
-                        <li><Link to="/groups" onClick={closeExpanded}>Groups</Link></li>
+                        {/* <li><Link to="/groups" onClick={closeExpanded}>Groups</Link></li> */}
                         <li><Link to="/settings" onClick={closeExpanded}>Settings</Link></li>
                         <li>
                             <button onClick={handleLogout}>Logout</button>

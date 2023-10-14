@@ -4,7 +4,7 @@ import { selectCurrentId, selectCurrentToken, logOut } from "../../features/auth
 import { UserProfile } from "../../features/user/userApiSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchImage } from "../../components/SimpleImageFetcher";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import './settings.css'
 
 

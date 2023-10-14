@@ -7,7 +7,7 @@ import { selectCurrentId } from '../../features/auth/authSlice'
 import './singlecomment.css'
 const SingleComment = () => {
     const curId = location.pathname.split('/')[2];
-    const id=useSelector(selectCurrentId)
+    const id = useSelector(selectCurrentId)
     const {
         data: comment,
         isLoading,

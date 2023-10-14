@@ -1,10 +1,21 @@
-import React,{useState} from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetGroupsQuery } from '../../features/group/groupApiSlice';
+import { GroupType } from '../../features/group/groupApiSlice';
 import './groups.css'
 
 
 const Groups = () => {
-    const [activeTab, setActiveTab] = useState('global');
 
+    const {
+        data: groups,
+        isSuccess,
+    } = useGetGroupsQuery({})
+
+    useEffect(() => {
+
+    }, [isSuccess])
+    console.log(groups)
+    const [activeTab, setActiveTab] = useState('global');
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
     };
@@ -16,7 +27,7 @@ const Groups = () => {
                     className={`groups-tab ${activeTab === 'global' ? 'active' : ''}`}
                     onClick={() => handleTabClick('global')}
                 >
-                    Global Users
+                    Global Groups
                 </div>
                 <div
                     className={`groups-tab ${activeTab === 'my-groups' ? 'active' : ''}`}

@@ -65,16 +65,16 @@ const Friends: React.FC = () => {
                     <CurrrentFriends />
                 </div>
                 <div className={`friends-page ${activeTab === 'pending-sent' ? 'active' : ''}`}>
-                    <PendingFriendRequests/>
+                    <PendingFriendRequests />
                 </div>
                 <div className={`friends-page ${activeTab === 'pending-received' ? 'active' : ''}`}>
-                    <ReceivedRequests/>
+                    <ReceivedRequests />
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-by-you' ? 'active' : ''}`}>
-                    <BlockedList/>
+                    <BlockedList />
                 </div>
                 <div className={`friends-page ${activeTab === 'blocked-you' ? 'active' : ''}`}>
-                    <UsersWhoBlockedYou/>
+                    <UsersWhoBlockedYou />
                 </div>
             </div>
         </div>

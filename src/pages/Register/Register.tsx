@@ -7,7 +7,7 @@ import { selectCurrentToken, setCredentials } from '../../features/auth/authSlic
 
 // import styles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser,faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import './register.css'
 
 
@@ -48,7 +48,7 @@ const Register = () => {
     try {
 
       // register request
-      const userData = await register({ username,email, password }).unwrap()
+      const userData = await register({ username, email, password }).unwrap()
 
       // save state
       dispatch(setCredentials({ ...userData.user, token: userData.token }))
